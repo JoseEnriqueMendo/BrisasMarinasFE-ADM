@@ -1,28 +1,17 @@
-import React, { Fragment, useEffect, useState } from "react";
-
-import { Category, CreateContent } from "../../components/category/category";
-import { NavBar } from "../../components/sideBar/sideBar";
-import { HeaderBack, HeaderButton } from "../../components/header/header";
-import "./home.css";
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import { CategoryData, CategoryState } from "../../entities/category";
-import { stat } from "fs";
-import {
-  InputDefault,
-  StaticInput,
-} from "../../components/inputContainer/input";
-import { storage } from "../../FireBase/firebase";
-import {
-  ref,
-  uploadBytes,
-  getStorage,
-  getDownloadURL,
-  StorageReference,
-} from "firebase/storage";
-import { v4 } from "uuid";
-import categoryService from "../../services/category";
-import { Button } from "../../components/button/button";
-import { url } from "inspector";
+import React, { useEffect, useState } from 'react';
+import { Category, CreateContent } from '../../components/category/category';
+import { NavBar } from '../../components/sideBar/sideBar';
+import { HeaderBack, HeaderButton } from '../../components/header/header';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CategoryState } from '../../entities/category';
+import { InputDefault, StaticInput } from '../../components/inputContainer/input';
+import { storage } from '../../FireBase/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 } from 'uuid';
+import categoryService from '../../services/category';
+import { Button } from '../../components/button/button';
+import ModalPersonalized from '../../components/ModalPersonalized/ModalPersonalized';
+import './home.css';
 
 export const Home: React.FC<{
   handleauth: () => void;
@@ -39,7 +28,7 @@ export const Home: React.FC<{
         <div className="app-container-category-content-header">
           <HeaderButton
             placeholder="Categorías"
-            handleClick={() => navigate("/category/create")}
+            handleClick={() => navigate('/category/create')}
             nameButton="Crear Categoria"
           />
         </div>
@@ -55,9 +44,9 @@ export const CreateCategory: React.FC<{
   handleauth: () => void;
 }> = ({ handleauth }) => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [nameState, setNameState] = useState(false);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
   const [descriptionState, setDescriptionState] = useState(false);
 
   return (
@@ -70,7 +59,7 @@ export const CreateCategory: React.FC<{
         <div className="app-container-category-content-header">
           <HeaderBack
             placeholder="Crear categorías"
-            handleClick={() => navigate("/category")}
+            handleClick={() => navigate('/category')}
           />
 
           <CreateContent
@@ -93,25 +82,32 @@ export const EditCategory: React.FC<{
   handleauth: () => void;
 }> = ({ handleauth }) => {
   const navigate = useNavigate();
-
   const location = useLocation();
   const { state } = location as CategoryState;
-
-  const [id, setId] = useState(state.id);
+  const [id] = useState(state.id);
   const [name, setName] = useState(state.name);
   const [nameState, setNameState] = useState(true);
   const [description, setDescription] = useState(state.description);
   const [descriptionState, setDescriptionState] = useState(true);
   const [imageUrl, setimageUrl] = useState(state.image_url);
   const [urlState, setUrlState] = useState(true);
-
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [buttonState, setbuttonState] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [paramas, setparams] = useState(['', '']);
 
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
     setImageUpload(file);
+  };
+  const handleCloseAlert = () => {
+    if (paramas[1] === 'true') {
+      setShowAlert(false);
+      navigate('/category');
+    } else {
+      setShowAlert(false);
+    }
   };
 
   const mostrarImagen = () => {
@@ -121,7 +117,7 @@ export const EditCategory: React.FC<{
           <label>
             <h1>Previsualización de la Imagen </h1>
           </label>
-          <img src={imageUrl} alt="image just uploaded" />
+          <img src={imageUrl} alt="img just uploaded" />
         </div>
       );
     }
@@ -129,30 +125,23 @@ export const EditCategory: React.FC<{
   useEffect(() => {
     if (imageUpload !== undefined) {
       setbuttonState(true);
-      console.log(buttonState);
     } else {
       setbuttonState(false);
-      console.log(buttonState);
       setUrlState(false);
     }
-    console.log(imageUpload);
-  }, [imageUpload]);
+  }, [imageUpload, buttonState]);
 
   const uploadImage = async () => {
     if (imageUpload === null || imageUpload === undefined) {
-      alert("No se seleccionó ningún archivo");
+      setparams(['No se seleccionó ningún archivo', 'false']);
+      setShowAlert(true);
+
       return <div></div>;
     } else {
-      const imageRef = await ref(
-        storage,
-        `category/${imageUpload.name + v4()}`
-      );
-      await uploadBytes(imageRef, imageUpload).then(() => {
-        console.log("llego");
-      });
+      const imageRef = await ref(storage, `category/${imageUpload.name + v4()}`);
+      await uploadBytes(imageRef, imageUpload).then(() => {});
 
       getDownloadURL(ref(storage, `category/${imageRef.name}`)).then((url) => {
-        console.log(url);
         setimageUrl(url);
         setUrlState(true);
       });
@@ -163,22 +152,18 @@ export const EditCategory: React.FC<{
 
   const EditCategory = async () => {
     if (nameState === true && descriptionState === true && urlState === true) {
-      const result = await categoryService.edit(
-        name,
-        description,
-        imageUrl,
-        id
-      );
-      console.log(result);
-      alert("Categoría editada con éxito");
-      navigate("/category");
+      await categoryService.edit(name, description, imageUrl, id);
+      setparams(['Categoría editada con éxito', 'true']);
+      setShowAlert(true);
     } else {
-      alert("campos vacios");
+      setparams(['Campos Vacios por favor rellenelos', 'false']);
+      setShowAlert(true);
     }
   };
 
   return (
     <div className="app-container-edit-category">
+      {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
       <div className="app-container-navBar">
         <NavBar handleauth={handleauth} />
       </div>
@@ -187,7 +172,7 @@ export const EditCategory: React.FC<{
         <div className="app-container-category-content-header">
           <HeaderBack
             placeholder="Editar categorías"
-            handleClick={() => navigate("/category")}
+            handleClick={() => navigate('/category')}
           />
         </div>
         <div className="app-container-category-edit-form">
@@ -207,7 +192,7 @@ export const EditCategory: React.FC<{
                     label="Nombre"
                     placeholder="Ejemplo: Entradas"
                     leyendaError="La categoría debe contener como mínimo 6 caracteres"
-                    expresionRegular={/^.{6,25}$/}
+                    expresionRegular={/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{6,120}$/}
                   />
 
                   <InputDefault
@@ -219,7 +204,7 @@ export const EditCategory: React.FC<{
                     label="Descripción"
                     placeholder="Ejemplo: zzz"
                     leyendaError="La categoría debe contener como mínimo 6 caracteres"
-                    expresionRegular={/^.{6,25}$/}
+                    expresionRegular={/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{6,120}$/}
                   />
                 </div>
 
@@ -227,19 +212,13 @@ export const EditCategory: React.FC<{
                   <div className="edit-file">
                     <label>Imagen</label>
 
-                    <input
-                      type="file"
-                      onChange={(event) => handleOnChange(event)}
-                    />
+                    <input type="file" onChange={(event) => handleOnChange(event)} />
                     <button onClick={uploadImage}>Upload Image</button>
                   </div>
 
                   <div className="button-edit">
                     {buttonState ? (
-                      <Button
-                        placeholder="Editar Categoría"
-                        handleClick={EditCategory}
-                      />
+                      <Button placeholder="Editar Categoría" handleClick={EditCategory} />
                     ) : (
                       <div></div>
                     )}
@@ -247,9 +226,7 @@ export const EditCategory: React.FC<{
                 </div>
               </div>
             </div>
-            <div className="app-container-category-create-image">
-              {mostrarImagen()}
-            </div>
+            <div className="app-container-category-create-image">{mostrarImagen()}</div>
           </div>
         </div>
       </div>
@@ -263,32 +240,43 @@ export const DeleteCategory: React.FC<{
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location as CategoryState;
+  const [id] = useState(state.id);
+  const [name] = useState(state.name);
+  const [description] = useState(state.description);
+  const [imageUrl] = useState(state.image_url);
+  const [showAlert, setShowAlert] = useState(false);
+  const [paramas, setparams] = useState(['', '']);
 
-  const [id, setId] = useState(state.id);
-  const [name, setName] = useState(state.name);
-  const [description, setDescriptionState] = useState(state.description);
-  const [imageUrl, setimageUrl] = useState(state.image_url);
+  const handleCloseAlert = () => {
+    if (paramas[1] === 'true') {
+      setShowAlert(false);
+      navigate('/category');
+    } else {
+      setShowAlert(false);
+    }
+  };
 
   const BorrarCategoria = async () => {
-    const result = await categoryService.delete(id);
-    console.log(result);
-    alert("Categoría editada con éxito");
-    navigate("category");
+    await categoryService.delete(id);
+    setparams(['Categoría borrada con éxito', 'true']);
+    setShowAlert(true);
   };
 
   const mostrarImagen = () => {
     return (
       <div className="app-container-create-image-uploaded">
         <label>
-          <h1>Previsualización de la Imagen</h1>{" "}
+          <h1>Previsualización de la Imagen</h1>{' '}
         </label>
-        <img src={imageUrl} alt="image just uploaded" />
+        <img src={imageUrl} alt="img just uploaded" />
       </div>
     );
   };
 
   return (
     <div className="app-container-edit-category">
+      {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
+
       <div className="app-container-navBar">
         <NavBar handleauth={handleauth} />
       </div>
@@ -297,7 +285,7 @@ export const DeleteCategory: React.FC<{
         <div className="app-container-category-content-header">
           <HeaderBack
             placeholder="Eliminar categorías"
-            handleClick={() => navigate("/category")}
+            handleClick={() => navigate('/category')}
           />
         </div>
 
@@ -311,27 +299,18 @@ export const DeleteCategory: React.FC<{
                 <div className="inputs">
                   <StaticInput type="text" value={id} placeholder="id" />
                   <StaticInput type="text" value={name} placeholder="Nombre" />
-                  <StaticInput
-                    type="text"
-                    value={description}
-                    placeholder="Descripción"
-                  />
+                  <StaticInput type="text" value={description} placeholder="Descripción" />
                 </div>
 
                 <div className="app-container-category-edit-file">
                   <div className="button-edit">
-                    <Button
-                      placeholder="Borrar categoría"
-                      handleClick={BorrarCategoria}
-                    />
+                    <Button placeholder="Borrar categoría" handleClick={BorrarCategoria} />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="app-container-category-create-image">
-              {mostrarImagen()}
-            </div>
+            <div className="app-container-category-create-image">{mostrarImagen()}</div>
           </div>
         </div>
       </div>

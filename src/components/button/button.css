@@ -1,8 +1,3 @@
-/* .app-container-buttonLogin {
-  display: flex;
-  margin-top: 30px;
-} */
-
 .app-container-buttonLogin > button {
   width: 250px;
   height: 40px;
@@ -14,6 +9,11 @@
   color: white;
   cursor: pointer;
 }
+
+.app-container-buttonLogin > button:hover {
+  background-color: rgb(8, 135, 160);
+}
+
 .app-container-log-fb-google > div {
   display: flex;
   flex-direction: row;
@@ -59,15 +59,29 @@ hr {
   margin-bottom: 30px;
 }
 
-
 .app-container-buttonModificar > svg {
   color: darkblue;
-
+  cursor: pointer;
 }
 
-.app-container-buttonEliminar > svg{
- color:  crimson;
+.app-container-buttonModificar > svg:hover {
+  color: rgb(3, 3, 230);
 }
-.app-container-buttonDetalle > svg{
-  color:  greenyellow;
- }
+
+.app-container-buttonEliminar > svg {
+  color: crimson;
+  cursor: pointer;
+}
+
+.app-container-buttonEliminar > svg:hover {
+  color: rgb(253, 38, 81);
+}
+
+.app-container-buttonDetalle > svg {
+  color: greenyellow;
+  cursor: pointer;
+}
+
+.app-container-buttonDetalle > svg:hover {
+  color: rgb(140, 233, 0);
+}

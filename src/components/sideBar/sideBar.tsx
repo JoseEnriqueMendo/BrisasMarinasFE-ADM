@@ -1,24 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { IoMdMenu, IoMdClose, IoMdPerson } from "react-icons/io";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import { GrCafeteria } from "react-icons/gr";
-import { BiLogOut } from "react-icons/bi";
-import { IoBarChartOutline, IoDocumentTextOutline } from "react-icons/io5";
-
-import userService from "../../services/user";
-
-import { Link, useNavigate } from "react-router-dom";
-
-import "./sideBar.css";
+import React, { useState } from 'react';
+import { IoMdPerson } from 'react-icons/io';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
+import { BiLogOut } from 'react-icons/bi';
+import { IoDocumentTextOutline } from 'react-icons/io5';
+import { FaCircleInfo } from 'react-icons/fa6';
+import { ImSpoonKnife } from 'react-icons/im';
+import userService from '../../services/user';
+import { useNavigate } from 'react-router-dom';
+import ModalPersonalized from '../ModalPersonalized/ModalPersonalized';
+import './sideBar.css';
 
 export const NavBar: React.FC<{
   handleauth: () => void;
 }> = ({ handleauth }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
+  const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
+  const [paramas, setparams] = useState(['', '']);
 
   const getProfile = async () => {
-    const user = await userService.showName();
+    const user = await userService.getUser();
     setName(user.data.name);
+  };
+  const handleCloseAlert = async () => {
+    if (paramas[1] === 'true') {
+      setShowAlert(false);
+      await localStorage.removeItem('token');
+      await handleauth();
+    } else {
+      setShowAlert(false);
+    }
   };
 
   React.useEffect(() => {
@@ -27,6 +38,7 @@ export const NavBar: React.FC<{
 
   return (
     <div className="app-container-navbar">
+      {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
       <div className="app-container-tittle">
         <h1>Welcome, {name}</h1>
         <hr />
@@ -34,59 +46,44 @@ export const NavBar: React.FC<{
 
       <div className="app-container-links">
         <nav>
-          <div className="app-container-user">
+          <div className="app-container-user" onClick={() => navigate('/user')}>
             <IoMdPerson size={28} />
-            <Link to="/user">Usuarios</Link>
+            <span>Usuarios</span>
           </div>
 
-          <div className="app-container-category">
+          <div className="app-container-category" onClick={() => navigate('/category')}>
             <BsFillGrid3X3GapFill size={28} />
-            <Link to="/category">Categorias</Link>
+            <span>Categorias</span>
           </div>
 
-          <div className="app-container-platillos">
-            <GrCafeteria size={28} color="white" />
-            <Link to="/platillo">Platillos</Link>
+          <div className="app-container-platillos" onClick={() => navigate('/platillo')}>
+            <ImSpoonKnife size={28} />
+            <span>Platillos</span>
+          </div>
+          <div className="app-container-reportes">
+            <IoDocumentTextOutline size={28} />
+            <span>Reportes</span>
           </div>
 
           <div className="app-container-dashboard">
-            <IoBarChartOutline size={28} />
-            <Link to="">Dashboard</Link>
+            <FaCircleInfo size={28} />
+            <span>Información</span>
           </div>
 
-          <div className="app-container-reportes">
-            <IoDocumentTextOutline size={28} />
-            <Link to="">Reportes</Link>
-          </div>
-
-          <div className="app-container-logout">
-            <BiLogOut
-              size={28}
-              onClick={async (e) => {
-                e.preventDefault();
-                try {
-                  await localStorage.removeItem("token");
-                  await handleauth();
-                  alert("Sesión terminada");
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-            />
-            <p
-              onClick={async (e) => {
-                e.preventDefault();
-                try {
-                  await localStorage.removeItem("token");
-                  await localStorage.removeItem("token");
-                  alert("Sesión terminada");
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-            >
-              Cerrar Sesión
-            </p>
+          <div
+            className="app-container-logout"
+            onClick={async (e) => {
+              e.preventDefault();
+              try {
+                setparams(['Sesión terminada, gracias por su visita', 'true']);
+                setShowAlert(true);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            <BiLogOut size={28} />
+            <span>Cerrar Sesión</span>
           </div>
         </nav>
       </div>

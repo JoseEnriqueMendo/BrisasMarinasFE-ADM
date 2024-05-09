@@ -1,0 +1,61 @@
+.ModalPersonalized-container {
+  position: fixed;
+  top: 0;
+  z-index: 9999; /* Alto índice de apilamiento */
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.ModalPersonalized-title {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.ModalPersonalized-hader {
+  width: 32.5%;
+  margin: auto;
+  padding: 10px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ModalPersonalized-body {
+  width: 32.5%;
+  margin: auto;
+  padding: 10px;
+  font-size: 20px;
+  background-color: black;
+}
+
+.ModalPersonalized-button {
+  background-color: #00bfff;
+  color: white;
+  font-size: 15px;
+  width: 100px;
+  padding: 6px;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ModalPersonalized-img {
+  width: 130px;
+  height: 130px;
+  margin-bottom: -15px;
+}
+
+.btn-close {
+  visibility: hidden;
+}
+
+.ModalPersonalized-button:hover {
+  background-color: rgb(0, 128, 255);
+}

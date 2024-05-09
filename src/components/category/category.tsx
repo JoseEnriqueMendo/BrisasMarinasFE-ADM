@@ -1,54 +1,57 @@
-//Libs
-import React, { useEffect, useState } from "react";
-import { storage } from "../../FireBase/firebase";
-import {
-  ref,
-  uploadBytes,
-  getStorage,
-  getDownloadURL,
-  StorageReference,
-} from "firebase/storage";
-import { v4 } from "uuid";
-//Components
-import { NotItem } from "../notItem/notItem";
-import { Button } from "../button/button";
-import { CategoryCard } from "../dataCard/dataCard";
-
-//Services
-import categoryService from "../../services/category";
-import { CategoryData } from "../../entities/category";
-
-//Styles
-import "./category.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import { InputDefault } from "../inputContainer/input";
-import { dblClick } from "@testing-library/user-event/dist/click";
+import React, { useEffect, useState } from 'react';
+import { storage } from '../../FireBase/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { NotItem } from '../notItem/notItem';
+import { Button } from '../button/button';
+import { CategoryCard } from '../dataCard/dataCard';
+import categoryService from '../../services/category';
+import { useNavigate } from 'react-router-dom';
+import { InputDefault } from '../inputContainer/input';
+import ModalPersonalized from '../ModalPersonalized/ModalPersonalized';
+import './category.css';
+import Spinner from '../spinner/Spinner';
 
 export const Category: React.FC<{}> = () => {
-  const [existsEntrys, setExistsEntrys] = useState<boolean>(false);
-
+  const [existsEntrys, setExistsEntrys] = useState<number>(0);
   const navigate = useNavigate();
+  const [loading, setloading] = useState(true);
   const countCategories = async () => {
     const result = await categoryService.count();
     setExistsEntrys(result);
-    console.log("Categories exists state: " + result);
   };
 
   const handleClick = () => {
-    navigate("/category/create");
+    navigate('/category/create');
+  };
+  const contador = () => {
+    setTimeout(function () {
+      setloading(false);
+    }, 3000);
   };
 
   useEffect(() => {
+    contador();
+  }, []);
+
+  useEffect(() => {
     countCategories();
+
+    if (existsEntrys > 0) {
+      setloading(false);
+    }
   }, [existsEntrys]);
 
+  const showSpinner = () => {
+    return <Spinner size={150} color="rgb(8, 135, 160)" />;
+  };
   const shownCategories = () => {
     if (!existsEntrys) {
       return (
         <NotItem
           placeholderItem="No existen categorías aún"
           placeholderAdv="para crear una nueva categoría"
-          imgSrc="https://drive.google.com/uc?export=view&id=1EMGPkqSn8X0kmFh6jtiSMhqKeDXfamCH"
+          imgSrc="https://cdn-icons-png.flaticon.com/512/3437/3437490.png"
           altTittle="Not item Logo"
           onSubmit={handleClick}
         />
@@ -60,7 +63,12 @@ export const Category: React.FC<{}> = () => {
 
   return (
     <div className="app-container-categories">
-      <div className="app-container-content">{shownCategories()}</div>
+      <div className="title">
+        <h1>Lista de Categorias</h1>
+      </div>
+      <div className="app-container-content centrar">
+        {loading ? showSpinner() : shownCategories()}
+      </div>
     </div>
   );
 };
@@ -85,9 +93,12 @@ export const CreateContent: React.FC<{
   setDescriptionState,
 }) => {
   const [imageUpload, setImageUpload] = useState<File | null>(null);
-  const [imageUrl, setimageUrl] = useState("");
+  const [imageUrl, setimageUrl] = useState('');
   const [urlState, setUrlState] = useState(false);
   const [buttonState, setbuttonState] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [paramas, setparams] = useState(['', '']);
+
   const navigate = useNavigate();
 
   const mostrarImagen = () => {
@@ -95,9 +106,9 @@ export const CreateContent: React.FC<{
       return (
         <div className="container-create-image-uploaded">
           <div className="txt1">
-            <h1>Previsualización de la Imagen</h1>{" "}
+            <h1>Previsualización de la Imagen</h1>{' '}
           </div>
-          <img className="img-create"  src={imageUrl} alt="image just uploaded" />
+          <img className="img-create" src={imageUrl} alt="just uploaded" />
         </div>
       );
     }
@@ -106,36 +117,36 @@ export const CreateContent: React.FC<{
   useEffect(() => {
     if (imageUpload !== undefined && imageUpload !== null) {
       setbuttonState(true);
-      console.log(buttonState);
     } else {
       setbuttonState(false);
-      console.log(buttonState);
       setUrlState(false);
     }
-    console.log(imageUpload);
-  }, [imageUpload]);
+  }, [imageUpload, buttonState]);
 
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
     setImageUpload(file);
   };
+  const handleCloseAlert = () => {
+    if (paramas[1] === 'true') {
+      setShowAlert(false);
+      navigate('/category');
+    } else {
+      setShowAlert(false);
+    }
+  };
 
   const uploadImage = async () => {
     if (imageUpload === null || imageUpload === undefined) {
-      alert("No se seleccionó ningún archivo");
+      setparams(['No se seleccionó ningún archivo', 'false']);
+      setShowAlert(true);
       return <div></div>;
     } else {
-      const imageRef = await ref(
-        storage,
-        `category/${imageUpload.name + v4()}`
-      );
-      await uploadBytes(imageRef, imageUpload).then(() => {
-        console.log("llego");
-      });
+      const imageRef = await ref(storage, `category/${imageUpload.name + v4()}`);
+      await uploadBytes(imageRef, imageUpload).then(() => {});
 
       getDownloadURL(ref(storage, `category/${imageRef.name}`)).then((url) => {
-        console.log(url);
         setimageUrl(url);
         setUrlState(true);
       });
@@ -146,71 +157,72 @@ export const CreateContent: React.FC<{
 
   const createCategory = async () => {
     if (nameState === true && descriptionState === true && urlState === true) {
-      const result = await categoryService.create(name, description, imageUrl);
-      console.log(result);
-      alert("Registro exitoso");
-      navigate("/category");
+      await categoryService.create(name, description, imageUrl);
+      setparams(['Registro exitoso de Categoria', 'true']);
+      setShowAlert(true);
     } else {
-      alert("campos vacios");
+      setparams(['Campos Vacios por favor rellenelos.', 'false']);
+      setShowAlert(true);
     }
   };
 
   return (
     <div className="create-container-category">
-  <div className="txt">
-    <h1>Registro de Categorias</h1>
-  </div>
+      {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
+      <div className="txt">
+        <h1>Registro de Categorias</h1>
+      </div>
 
-  <div className="container-category-create-form">
-    <div className="create-top">
-      <div className="create-top-left">
-        <div className="create-inputs">
-          <InputDefault
-            estado={nameState}
-            campo={name}
-            cambiarEstado={(txt: boolean) => setNameState(txt)}
-            cambiarCampo={(txt: string) => setName(txt)}
-            tipo="text"
-            label="Nombre"
-            placeholder="Ejemplo: Entradas"
-            leyendaError="La categoría debe contener como mínimo 6 caracteres"
-            expresionRegular={/^.{6,25}$/}
-          />
+      <div className="container-category-create-form">
+        <div className="create-top">
+          <div className="create-top-left">
+            <div className="create-inputs">
+              <InputDefault
+                estado={nameState}
+                campo={name}
+                cambiarEstado={(txt: boolean) => setNameState(txt)}
+                cambiarCampo={(txt: string) => setName(txt)}
+                tipo="text"
+                label="Nombre"
+                placeholder="Ejemplo: Entradas"
+                leyendaError="La categoría debe contener como mínimo 6 caracteres"
+                expresionRegular={/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{6,120}$/}
+              />
 
-          <InputDefault
-            estado={descriptionState}
-            campo={description}
-            cambiarEstado={(txt: boolean) => setDescriptionState(txt)}
-            cambiarCampo={(txt: string) => setDescription(txt)}
-            tipo="text"
-            label="Descripción"
-            placeholder="Ejemplo: zzz"
-            leyendaError="La categoría debe contener como mínimo 6 caracteres"
-            expresionRegular={/^.{6,25}$/}
-          />
+              <InputDefault
+                estado={descriptionState}
+                campo={description}
+                cambiarEstado={(txt: boolean) => setDescriptionState(txt)}
+                cambiarCampo={(txt: string) => setDescription(txt)}
+                tipo="text"
+                label="Descripción"
+                placeholder="Ejemplo: zzz"
+                leyendaError="La categoría debe contener como mínimo 6 caracteres"
+                expresionRegular={/^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s]{6,120}$/}
+              />
+            </div>
+          </div>
+          <div className="create-top-right">{mostrarImagen()}</div>
+        </div>
+
+        <div className="create-bot">
+          <div className="container-category-create-file">
+            <div className="edit-file">
+              <h4>Imagen</h4>
+              <input type="file" onChange={(event) => handleOnChange(event)} />
+              <button onClick={uploadImage}>Upload Image</button>
+            </div>
+
+            <div className="button-edit">
+              {buttonState ? (
+                <Button placeholder="Registrar" handleClick={createCategory} />
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-      <div className="create-top-right">{mostrarImagen()}</div>
     </div>
-
-    <div className="create-bot">
-      <div className="container-category-create-file">
-        <div className="edit-file">
-          <h4>Imagen</h4>
-          <input type="file" onChange={(event) => handleOnChange(event)} />
-          <button onClick={uploadImage}>Upload Image</button>
-        </div>
-
-        <div className="button-edit">
-          {buttonState ? (
-            <Button placeholder="Registrar" handleClick={createCategory} />
-          ) : (
-            <div></div>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
   );
 };

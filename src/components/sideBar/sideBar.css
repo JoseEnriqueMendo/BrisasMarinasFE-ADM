@@ -34,24 +34,28 @@ h1 {
   flex-direction: row;
   align-items: center;
   align-content: center;
-  margin-left: 24px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.app-container-links > nav > div > a {
+.app-container-links > nav > div > span {
   font-size: 20px;
-  color: white;
   text-decoration: none;
-  margin-bottom: 30px;
 }
 
 .app-container-links > nav > div > svg {
-  margin-bottom: 25px;
   margin-right: 25px;
-  color: white;
+  margin-left: 24px;
 }
 
 p {
   font-size: 20px;
   margin-top: -8px;
-  color: white;
+}
+.app-container-links > nav > div:hover {
+  background-color: rgb(72, 72, 72);
+  color: #f37915;
 }

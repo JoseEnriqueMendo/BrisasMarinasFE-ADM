@@ -1,4 +1,4 @@
-.app-container-headerback{
+.app-container-headerback {
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid;
@@ -12,12 +12,12 @@
   cursor: pointer;
 }
 
-.app-container-headerButton{
+.app-container-headerButton {
   width: 100%;
   border-bottom: 1px solid;
   height: 72.55px;
 }
-.app-container-header-default-title-button{
+.app-container-header-default-title-button {
   display: flex;
   width: 97%;
   margin: auto;
@@ -27,33 +27,13 @@
 }
 .app-container-header-default-title {
   width: 50%;
-  height: 100%;
+  font-size: 25px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.app-container-header-default-button{
+.app-container-header-default-button {
   width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-
-  /* .app-container-header-default-title > h2:hover {
-    margin-left: 60px;
-  } */
-
- 
-  /* .app-container-header-default-button{
-    margin-bottom: 30px; 
-    margin-left: 650px;
-  } */
-
-  /* .app-container-header-default-button > div  {
-    justify-content: none;
-    align-items: none;
-    margin-top: 15px;
-    margin-bottom: 0;
-
-  } */
-  /* .app-container-headerback > div {
-    margin-left: 10px;
-  } */

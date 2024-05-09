@@ -1,49 +1,53 @@
-//Libs
-import React, { useEffect, useState } from "react";
-import { storage } from "../../FireBase/firebase";
-import {
-  ref,
-  uploadBytes,
-  getStorage,
-  getDownloadURL,
-  StorageReference,
-} from "firebase/storage";
-import { v4 } from "uuid";
-//Components
-import { NotItem } from "../notItem/notItem";
-import { Button } from "../button/button";
-import { CategoryCard, PlatilloCard } from "../dataCard/dataCard";
-
-//Services
-import categoryService from "../../services/category";
-import dishesService from "../../services/dishes";
-import { CategoryData } from "../../entities/category";
-
-//Styles
-import "./platillo.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import { InputDefault } from "../inputContainer/input";
-import { dblClick } from "@testing-library/user-event/dist/click";
-import { idText } from "typescript";
-import { CreatePlatillo } from "../../pages/platillo/platillo";
+import React, { useEffect, useState } from 'react';
+import { storage } from '../../FireBase/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { NotItem } from '../notItem/notItem';
+import { Button } from '../button/button';
+import { PlatilloCard } from '../dataCard/dataCard';
+import categoryService from '../../services/category';
+import dishesService from '../../services/dishes';
+import { CategoryData } from '../../entities/category';
+import { useNavigate } from 'react-router-dom';
+import { InputDefault } from '../inputContainer/input';
+import ModalPersonalized from '../ModalPersonalized/ModalPersonalized';
+import './platillo.css';
+import Spinner from '../spinner/Spinner';
 
 export const PLatilloListaLlamada: React.FC<{}> = () => {
-  const [existsEntrys, setExistsEntrys] = useState<boolean>(false);
-
+  const [existsEntrys, setExistsEntrys] = useState<number>(0);
   const navigate = useNavigate();
+  const [loading, setloading] = useState(true);
+
   const countCategories = async () => {
-    // cambiar aqui por dishes servidces
-    const result = await categoryService.count();
+    const result = await dishesService.count();
     setExistsEntrys(result);
-    console.log("Categories exists state: " + result);
+  };
+
+  const showSpinner = () => {
+    return <Spinner size={150} color="rgb(8, 135, 160)" />;
   };
 
   const handleClick = () => {
-    navigate("/platillo/create");
+    navigate('/platillo/create');
+  };
+
+  const contador = () => {
+    setTimeout(function () {
+      setloading(false);
+    }, 3000);
   };
 
   useEffect(() => {
+    contador();
+  }, []);
+
+  useEffect(() => {
     countCategories();
+
+    if (existsEntrys > 0) {
+      setloading(false);
+    }
   }, [existsEntrys]);
 
   const shownCategories = () => {
@@ -52,7 +56,7 @@ export const PLatilloListaLlamada: React.FC<{}> = () => {
         <NotItem
           placeholderItem="No existen platillos aún"
           placeholderAdv="para crear un nuevo platillo"
-          imgSrc="https://drive.google.com/uc?export=view&id=1EMGPkqSn8X0kmFh6jtiSMhqKeDXfamCH"
+          imgSrc="https://cdn-icons-png.flaticon.com/512/3437/3437490.png"
           altTittle="Not item Logo"
           onSubmit={handleClick}
         />
@@ -64,7 +68,12 @@ export const PLatilloListaLlamada: React.FC<{}> = () => {
 
   return (
     <div className="app-container-categories">
-      <div className="app-container-content">{shownCategories()}</div>
+      <div className="title">
+        <h1>Lista de Platillos</h1>
+      </div>
+      <div className="app-container-content centrar">
+        {loading ? showSpinner() : shownCategories()}
+      </div>
     </div>
   );
 };
@@ -105,21 +114,22 @@ export const CreatePlatilloContent: React.FC<{
   setid_categoriaState,
 }) => {
   const [imageUpload, setImageUpload] = useState<File | null>(null);
-  const [imageUrl, setimageUrl] = useState("");
+  const [imageUrl, setimageUrl] = useState('');
   const [urlState, setUrlState] = useState(false);
   const [buttonState, setbuttonState] = useState(false);
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState<CategoryData[] | null>([]);
-  const [nombrecategory, setnombrecategory] = useState("");
-
+  const [nombrecategory, setnombrecategory] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [paramas, setparams] = useState(['', '']);
   const mostrarImagen = () => {
     if (urlState === true) {
       return (
         <div className="container-create-image-uploaded">
           <div className="txt1">
-            <h1>Previsualización de la Imagen</h1>{" "}
+            <h1>Previsualización de la Imagen</h1>{' '}
           </div>
-          <img className="img-create" src={imageUrl} alt="image just uploaded"/>
+          <img className="img-create" src={imageUrl} alt="img just uploaded" />
         </div>
       );
     }
@@ -129,18 +139,26 @@ export const CreatePlatilloContent: React.FC<{
     const result = await categoryService.list();
     setCategoryList(result);
   };
+  const handleCloseAlert = () => {
+    if (paramas[1] === 'true') {
+      setShowAlert(false);
+      navigate('/platillo');
+    } else {
+      setShowAlert(false);
+    }
+  };
 
   const categoriaID = async (name: string) => {
-    if (nombrecategory !== "") {
+    if (nombrecategory !== '') {
       const result = await categoryService.showID(name);
-      console.log(result.data.id);
       setid_categoria(result.data.id);
       setid_categoriaState(true);
     }
   };
 
   const evento = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setnombrecategory(event.target.value);
+    const selectedCategory = event.target.value;
+    setnombrecategory(selectedCategory);
   };
 
   const mapearCategorias = () => {
@@ -163,7 +181,9 @@ export const CreatePlatilloContent: React.FC<{
     } else {
       return (
         <select name="Categoria " className="categoria">
-          <option>No hay categorias </option>
+          <option selected disabled>
+            No hay categorias{' '}
+          </option>
         </select>
       );
     }
@@ -174,14 +194,12 @@ export const CreatePlatilloContent: React.FC<{
     categoriaID(nombrecategory);
     if (imageUpload !== undefined && imageUpload !== null) {
       setbuttonState(true);
-      console.log(buttonState);
     } else {
       setbuttonState(false);
-      console.log(buttonState);
       setUrlState(false);
     }
-    console.log(imageUpload);
-  }, [imageUpload, nombrecategory]);
+    // eslint-disable-next-line
+  }, [imageUpload, nombrecategory, buttonState]);
 
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
@@ -191,19 +209,14 @@ export const CreatePlatilloContent: React.FC<{
 
   const uploadImage = async () => {
     if (imageUpload === null || imageUpload === undefined) {
-      alert("No se seleccionó ningún archivo");
+      setparams(['No se seleccionó ningún archivo', 'false']);
+      setShowAlert(true);
       return <div></div>;
     } else {
-      const imageRef = await ref(
-        storage,
-        `platillo/${imageUpload.name + v4()}`
-      );
-      await uploadBytes(imageRef, imageUpload).then(() => {
-        console.log("llego");
-      });
+      const imageRef = await ref(storage, `platillo/${imageUpload.name + v4()}`);
+      await uploadBytes(imageRef, imageUpload).then(() => {});
 
       getDownloadURL(ref(storage, `platillo/${imageRef.name}`)).then((url) => {
-        console.log(url);
         setimageUrl(url);
         setUrlState(true);
       });
@@ -220,25 +233,24 @@ export const CreatePlatilloContent: React.FC<{
       precioState === true &&
       id_categoriaState === true
     ) {
-      // mandar los datos del platillo  ojo no olvides los tipos
-
-      const result = await dishesService.create(
+      await dishesService.create(
         name,
         description,
         imageUrl,
         Number(precio),
         Number(id_categoria)
       );
-      console.log(result);
-      alert("Registro exitoso");
-      navigate("/platillo");
+      setparams(['Registro exitoso de plato', 'true']);
+      setShowAlert(true);
     } else {
-      alert("campos vacios");
+      setparams(['Campos Vacios por favor rellenelos', 'false']);
+      setShowAlert(true);
     }
   };
 
   return (
     <div className="create-container-platillo">
+      {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
       <div className="txt">
         <h1>Registro de Platillos</h1>
       </div>
@@ -255,7 +267,7 @@ export const CreatePlatilloContent: React.FC<{
                 label="Nombre"
                 placeholder="Ejemplo: Ceviche Mixto"
                 leyendaError="La categoría debe contener como mínimo 6 caracteres"
-                expresionRegular={/^.{6,25}$/}
+                expresionRegular={/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{6,120}$/}
               />
 
               <InputDefault
@@ -265,9 +277,9 @@ export const CreatePlatilloContent: React.FC<{
                 cambiarCampo={(txt: string) => setDescription(txt)}
                 tipo="text"
                 label="Descripción"
-                placeholder="Ejemplo: zzz"
+                placeholder="Ejemplo: "
                 leyendaError="La categoría debe contener como mínimo 6 caracteres"
-                expresionRegular={/^.{6,25}$/}
+                expresionRegular={/^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s]{6,120}$/}
               />
 
               <InputDefault
@@ -283,16 +295,12 @@ export const CreatePlatilloContent: React.FC<{
               />
 
               <div className="app-container-platillo-create-category">
-              <h4>Categorias</h4>
-              {mapearCategorias()}
+                <h4>Categorias</h4>
+                {mapearCategorias()}
               </div>
             </div>
           </div>
-          <div className="create-top-right">
-
-              {mostrarImagen()}
-
-          </div>
+          <div className="create-top-right">{mostrarImagen()}</div>
         </div>
         <div className="create-bot">
           <div className="container-platillo-create-file">

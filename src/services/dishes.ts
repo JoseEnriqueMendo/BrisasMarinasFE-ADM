@@ -1,7 +1,7 @@
-import axios from "axios";
-import { DishesDefault } from "../entities/dishes";
+import axios from 'axios';
+import { DishesDefault } from '../entities/dishes';
 
-const BASE_URL = "https://kpl1jddpz7.execute-api.us-east-1.amazonaws.com";
+const BASE_URL = 'https://brisasmarinasbe.onrender.com';
 
 const dishesService = {
   list: async (): Promise<DishesDefault[] | null> => {
@@ -29,18 +29,16 @@ const dishesService = {
     price: number,
     idcategory: number
   ) => {
+    const requestData = {
+      name,
+      description,
+      image,
+      price,
+      idcategory,
+    };
+
     try {
-      const { data } = await axios({
-        url: `${BASE_URL}/dishes/create`,
-        method: "post",
-        data: {
-          name: name,
-          description: description,
-          image: image,
-          price: price,
-          idcategory: idcategory,
-        },
-      });
+      const { data } = await axios.post(`${BASE_URL}/dishes/create`, requestData);
       return data;
     } catch (error) {
       return null;
@@ -55,19 +53,17 @@ const dishesService = {
     idcategory: number,
     id: number
   ) => {
+    const requestData = {
+      name,
+      description,
+      image,
+      price,
+      idcategory,
+      id,
+    };
+
     try {
-      const { data } = await axios({
-        url: `${BASE_URL}/dishes/edit`,
-        method: "post",
-        data: {
-          name: name,
-          description: description,
-          image: image,
-          price: price,
-          idcategory: idcategory,
-          id: id,
-        },
-      });
+      const { data } = await axios.put(`${BASE_URL}/dishes/edit`, requestData);
       return data;
     } catch (error) {
       return null;
@@ -75,14 +71,10 @@ const dishesService = {
   },
 
   delete: async (id: number) => {
+    const requestData = { id };
+
     try {
-      const { data } = await axios({
-        url: `${BASE_URL}/dishes/delete`,
-        method: "post",
-        data: {
-          id: id,
-        },
-      });
+      const { data } = await axios.delete(`${BASE_URL}/dishes/delete`, { data: requestData });
       return data;
     } catch (error) {
       return null;

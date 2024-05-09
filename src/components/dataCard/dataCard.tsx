@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
-
-import categoryService from "../../services/category";
-import { CategoryData } from "../../entities/category";
-import {
-  ButtonDetalle,
-  ButtonEliminar,
-  ButtonModificar,
-} from "../button/button";
-import "./dataCard.css";
-import { useNavigate } from "react-router-dom";
-import { DishesDefault } from "../../entities/dishes";
-import dishesService from "../../services/dishes";
-import { MostrarPlatillo } from "../../pages/platillo/platillo";
+import React, { useEffect, useState } from 'react';
+import categoryService from '../../services/category';
+import { CategoryData } from '../../entities/category';
+import { ButtonDetalle, ButtonEliminar, ButtonModificar } from '../button/button';
+import { useNavigate } from 'react-router-dom';
+import { DishesDefault } from '../../entities/dishes';
+import dishesService from '../../services/dishes';
+import './dataCard.css';
 
 export const CategoryCard: React.FC<{}> = () => {
   const [categoryList, setCategoryList] = useState<CategoryData[] | null>([]);
@@ -19,16 +13,15 @@ export const CategoryCard: React.FC<{}> = () => {
 
   useEffect(() => {
     serviceCategory();
-  }, []);
+  }, [categoryList]);
 
   const serviceCategory = async () => {
     const result = await categoryService.list();
     setCategoryList(result);
-    console.log(categoryList);
   };
 
   const editCategory = async (category: CategoryData) => {
-    navigate("/category/edit", {
+    navigate('/category/edit', {
       state: {
         id: category.id,
         name: category.name,
@@ -39,7 +32,7 @@ export const CategoryCard: React.FC<{}> = () => {
   };
 
   const DeleteCategory = async (category: CategoryData) => {
-    navigate("/category/delete", {
+    navigate('/category/delete', {
       state: {
         id: category.id,
         name: category.name,
@@ -51,9 +44,6 @@ export const CategoryCard: React.FC<{}> = () => {
 
   return (
     <div>
-      <div className="title">
-        <h1>Lista de Categorias</h1>
-      </div>
       <div className="dataCard">
         {categoryList?.map((data, idx) => (
           <div className="app-container-category-data-card" key={idx}>
@@ -69,10 +59,7 @@ export const CategoryCard: React.FC<{}> = () => {
             </div>
 
             <div className="app-container-category-data-card-buttons">
-              <ButtonModificar
-                placeholder="Editar"
-                handleClick={() => editCategory(data)}
-              />
+              <ButtonModificar placeholder="Editar" handleClick={() => editCategory(data)} />
               <ButtonEliminar
                 placeholder="Eliminar"
                 handleClick={() => DeleteCategory(data)}
@@ -91,16 +78,15 @@ export const PlatilloCard: React.FC<{}> = () => {
 
   useEffect(() => {
     servicePLatillo();
-  }, []);
+  }, [platilloList]);
 
   const servicePLatillo = async () => {
     const result = await dishesService.list();
     setplatilloList(result);
-    console.log(platilloList);
   };
 
   const editPlatillo = async (platillo: DishesDefault) => {
-    navigate("/platillo/edit", {
+    navigate('/platillo/edit', {
       state: {
         id: platillo.id,
         nombre: platillo.nombre,
@@ -114,7 +100,7 @@ export const PlatilloCard: React.FC<{}> = () => {
   };
 
   const mostrarPlatillo = async (platillo: DishesDefault) => {
-    navigate("/platillo/show", {
+    navigate('/platillo/show', {
       state: {
         id: platillo.id,
         nombre: platillo.nombre,
@@ -127,10 +113,8 @@ export const PlatilloCard: React.FC<{}> = () => {
     });
   };
 
-
-
   const DeletePlatillo = async (platillo: DishesDefault) => {
-    navigate("/platillo/delete", {
+    navigate('/platillo/delete', {
       state: {
         id: platillo.id,
         nombre: platillo.nombre,
@@ -145,9 +129,6 @@ export const PlatilloCard: React.FC<{}> = () => {
 
   return (
     <div>
-      <div className="title">
-        <h1>Lista de Platillos</h1>
-      </div>
       <div className="dataCard">
         {platilloList?.map((data, idx) => (
           <div className="app-container-category-data-card" key={idx}>
@@ -165,17 +146,9 @@ export const PlatilloCard: React.FC<{}> = () => {
               </li>
             </div>
 
-
-          <div className="app-container-category-data-card-buttons">
-            <ButtonModificar
-              placeholder="Editar"
-              handleClick={() => editPlatillo(data)}
-            />
-            <ButtonDetalle
-              placeholder="Detalle"
-              handleClick={() => mostrarPlatillo(data)}
-            />
-
+            <div className="app-container-category-data-card-buttons">
+              <ButtonModificar placeholder="Editar" handleClick={() => editPlatillo(data)} />
+              <ButtonDetalle placeholder="Detalle" handleClick={() => mostrarPlatillo(data)} />
 
               <ButtonEliminar
                 placeholder="Eliminar"

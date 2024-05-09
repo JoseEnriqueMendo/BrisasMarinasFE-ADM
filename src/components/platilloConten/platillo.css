@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Sora&display=swap');
 .create-container-platillo {
   width: 100%;
@@ -9,14 +8,13 @@
   width: 500px;
   margin: auto;
 }
-.txt>h1 {
+.txt > h1 {
   text-align: center;
   font-family: 'Indie Flower', cursive;
   font-size: 25px;
   color: black;
   font-weight: bold;
   text-transform: uppercase;
-
 }
 
 .container-platillo-create-form {
@@ -59,13 +57,12 @@
   justify-content: center;
 }
 .txt1 {
-
   padding: 10px;
   /* display: flex;*/
   /* align-items: center; */
   /* justify-content: center; */
 }
-.txt1>h1 {
+.txt1 > h1 {
   width: 100%;
   margin: auto;
 
@@ -105,11 +102,13 @@
   align-items: center;
   justify-content: center;
 }
-.edit-file>button {
+.edit-file > button {
   cursor: pointer;
 }
 
-
-
-
-
+.centrar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}

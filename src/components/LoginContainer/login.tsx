@@ -1,45 +1,54 @@
-import React, { useState } from "react";
-import { text } from "stream/consumers";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../button/button';
+import userService from '../../services/user';
+import { InputDefault, InputPassword } from '../inputContainer/input';
+import ModalPersonalized from '../ModalPersonalized/ModalPersonalized';
+import './login.css';
 
-import { Button, LoginWithFB } from "../button/button";
-import userService from "../../services/user";
-
-import { InputDefault, InputPassword } from "../inputContainer/input";
-
-import "./login.css";
-
-export const LoginContainer: React.FC<{
-  handleauth: () => void;
-}> = ({ handleauth }) => {
-  const [email, setEmail] = useState("jordy.mayhuay@gmail.com");
+export const LoginContainer: React.FC<{ handleauth: () => void }> = ({ handleauth }) => {
+  const [email, setEmail] = useState('');
   const [emailState, setEmailState] = useState(false);
-  const [password, setPassword] = useState("jordy1234");
+  const [password, setPassword] = useState('');
   const [passwordState, setPasswordState] = useState(false);
+  const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
+  const [paramas, setparams] = useState(['', '']);
+
+  const handleCloseAlert = () => {
+    if (paramas[1] === 'true') {
+      setShowAlert(false);
+      handleauth();
+      navigate('/category');
+    } else {
+      setShowAlert(false);
+    }
+  };
 
   const submitClick = async (emailValue: string, passwordValue: string) => {
-    if (emailValue === "" || passwordValue === "") {
-      alert("Password o email en blanco");
+    if (emailValue === '' || passwordValue === '') {
+      setparams(['Campos Vacios por favor rellenelos.', 'false']);
+      setShowAlert(true);
     } else {
-      const result = await userService.login(emailValue, passwordValue);
+      const result = await userService.login(emailValue, passwordValue, 'ADM_FRONTEND');
       if (!result.success) {
-        console.log(result);
-        alert(result.message);
+        setparams([result.message || 'ERROR AL ACECEDER', 'false']);
+        setShowAlert(true);
       } else {
-        localStorage.setItem("token", result.data.token);
-        alert("Usuario inició sesión correctamente");
-        console.log(result);
-        handleauth();
-        window.location.reload();
+        localStorage.setItem('token', result.data.token);
+        setparams(['Usuario inició sesión correctamente', 'true']);
+        setShowAlert(true);
       }
     }
   };
 
   return (
     <div className="app-container-login-container">
+      {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
       <div className="app-container-linput">
         <div className="app-container-header">
           <img
-            src={require("../../assets/Images/logo Brisas marinas.png")}
+            src={require('../../assets/Images/logo Brisas marinas.png')}
             alt="Brisas Marinas Logo"
           />
           <h1>Brisas Marinas</h1>
@@ -82,16 +91,6 @@ export const LoginContainer: React.FC<{
           handleClick={() => submitClick(email, password)}
         />
       </div>
-
-      {/*
-        <div className="app-container-login-fb">
-          <LoginWithFB
-            handleLoginWithFB={() => loginFB()}
-            handleLoginWithGoogle={() => loginGoogle()}
-            placeholder="O inicie sesión con"
-          />
-        </div>
-        */}
     </div>
   );
 };
