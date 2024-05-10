@@ -3,3 +3,11 @@
     transform: rotate(360deg);
   }
 }
+
+.spinner-container {
+  width: 100%;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -66,7 +66,7 @@ export const Category: React.FC<{}> = () => {
       <div className="title">
         <h1>Lista de Categorias</h1>
       </div>
-      <div className="app-container-content centrar">
+      <div className="app-container-content">
         {loading ? showSpinner() : shownCategories()}
       </div>
     </div>

@@ -16,7 +16,11 @@ const Spinner: React.FC<SpinnerProps> = ({ size = 40, color = '#333' }) => {
     animation: 'spin 1s linear infinite',
   };
 
-  return <div className="spinner" style={spinnerStyle}></div>;
+  return (
+    <div className="spinner-container">
+      <div className="spinner" style={spinnerStyle}></div>;
+    </div>
+  );
 };
 
 export default Spinner;

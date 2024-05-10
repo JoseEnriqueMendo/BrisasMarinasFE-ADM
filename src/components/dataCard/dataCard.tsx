@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import categoryService from '../../services/category';
 import { CategoryData } from '../../entities/category';
 import { ButtonDetalle, ButtonEliminar, ButtonModificar } from '../button/button';
@@ -158,6 +158,34 @@ export const PlatilloCard: React.FC<{}> = () => {
           </div>
         ))}
       </div>
+    </div>
+  );
+};
+
+export const MemberCard: React.FC<{
+  name_member: string;
+  img_member: string;
+  index_member: number;
+}> = ({ name_member, img_member, index_member }) => {
+  const [hideImg, sethideImg] = useState(false);
+
+  const hidenImg = (e: MouseEvent<HTMLImageElement>) => {
+    sethideImg(true);
+    e.preventDefault();
+  };
+
+  const showImg = (e: MouseEvent<HTMLDivElement>) => {
+    sethideImg(false);
+    e.preventDefault();
+  };
+
+  return (
+    <div className="Members-container-member" key={index_member} onMouseLeave={showImg}>
+      {hideImg !== true ? (
+        <img src={img_member} onMouseEnter={hidenImg} alt={name_member} />
+      ) : (
+        <div className="Members-container-names"> {name_member}</div>
+      )}
     </div>
   );
 };

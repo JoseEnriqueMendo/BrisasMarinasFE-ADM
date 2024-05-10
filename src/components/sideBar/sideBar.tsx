@@ -50,12 +50,10 @@ export const NavBar: React.FC<{
             <IoMdPerson size={28} />
             <span>Usuarios</span>
           </div>
-
           <div className="app-container-category" onClick={() => navigate('/category')}>
             <BsFillGrid3X3GapFill size={28} />
             <span>Categorias</span>
           </div>
-
           <div className="app-container-platillos" onClick={() => navigate('/platillo')}>
             <ImSpoonKnife size={28} />
             <span>Platillos</span>
@@ -65,11 +63,10 @@ export const NavBar: React.FC<{
             <span>Reportes</span>
           </div>
 
-          <div className="app-container-dashboard">
+          <div className="app-container-dashboard" onClick={() => navigate('/information')}>
             <FaCircleInfo size={28} />
             <span>Información</span>
           </div>
-
           <div
             className="app-container-logout"
             onClick={async (e) => {

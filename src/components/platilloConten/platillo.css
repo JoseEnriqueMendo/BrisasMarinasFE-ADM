@@ -105,10 +105,3 @@
 .edit-file > button {
   cursor: pointer;
 }
-
-.centrar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 500px;
-}

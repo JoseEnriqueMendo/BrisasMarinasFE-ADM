@@ -1,0 +1,50 @@
+.information-container {
+  font-size: 30px;
+  display: flex;
+  text-align: justify;
+  padding: 40px;
+  flex-direction: column;
+}
+
+.information-container > h3 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.cabezeraInformacion {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.cabezeraInformacion > img {
+  width: 200px;
+  height: 200px;
+}
+
+.Members-container-member {
+  border: 5px solid #0887a0;
+  width: 260px;
+  height: 300px;
+}
+
+.Members-container-member > img {
+  width: 260px;
+  height: 300px;
+}
+
+.Members-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+}
+
+.Members-container-names {
+  background-color: #0887a0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}

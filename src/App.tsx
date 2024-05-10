@@ -11,6 +11,7 @@ import {
   MostrarPlatillo,
   Platillo,
 } from './pages/platillo/platillo';
+import { Information } from './pages/Information/Information';
 
 function App() {
   const [adminLoggedIn, setadminLoggedIn] = useState(false);
@@ -92,6 +93,11 @@ function App() {
             <Route
               path="/user/delete"
               element={<BorrarUser handleauth={() => setadminLoggedIn(false)} />}
+            />
+
+            <Route
+              path="/information"
+              element={<Information handleauth={() => setadminLoggedIn(false)} />}
             />
           </>
         )}
