@@ -51,7 +51,7 @@ export const CreateUser: React.FC<{
   const [phoneState, setphoneState] = useState(false);
   const [dni, setdni] = useState('');
   const [dniState, setdniState] = useState(false);
-  const [genero] = useState('');
+  const [genero, setgenero] = useState('');
   const [generoState, setgeneroState] = useState(false);
   return (
     <div className="app-container-home">
@@ -85,7 +85,7 @@ export const CreateUser: React.FC<{
             lastnameState={lastnameState}
             setlastnameState={(txt: boolean) => setlastnameState(txt)}
             genero={genero}
-            setgenero={(txt: string) => setidRol(txt)}
+            setgenero={(txt: string) => setgenero(txt)}
             generoState={generoState}
             setgeneroeState={(txt: boolean) => setgeneroState(txt)}
             dni={dni}
