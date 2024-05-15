@@ -24,7 +24,14 @@ export const Information: React.FC<{
     return (
       <div className="Members-container">
         {imgs.map((i, index) => {
-          return <MemberCard name_member={names[index]} img_member={i} index_member={index} />;
+          return (
+            <MemberCard
+              name_member={names[index]}
+              img_member={i}
+              index_member={index}
+              key={index}
+            />
+          );
         })}
       </div>
     );
@@ -61,6 +68,7 @@ export const Information: React.FC<{
               productos en distintas categorías para una mejor experiencia de usuario.
             </p>
           </div>
+
           <h3>Contribuidores</h3>
           {mapearMembers()}
         </div>

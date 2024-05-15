@@ -59,3 +59,66 @@ p {
   background-color: rgb(72, 72, 72);
   color: #f37915;
 }
+
+@media (max-width: 1100px) {
+  .app-container-navBar {
+    width: 25%;
+    overflow: hidden;
+  }
+  .app-container-logo-side > img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .app-container-navBar {
+    width: 100px;
+  }
+
+  .app-container-logo-side > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-container-links > nav > div > svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 400px) {
+  .app-container-links > nav > div > svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-height: 440px) {
+  .app-container-navbar {
+    overflow-y: scroll;
+  }
+  .app-container-links {
+    overflow-y: hidden;
+  }
+}
+
+@media (max-height: 440px) and (max-width: 1000px) {
+  .app-container-navbar {
+    overflow-y: scroll;
+  }
+  .app-container-links {
+    overflow-y: hidden;
+  }
+
+  .app-container-links {
+    overflow-y: scroll;
+  }
+
+  .app-container-links > nav > div > svg {
+    min-width: fit-content !important;
+    margin: auto;
+  }
+}

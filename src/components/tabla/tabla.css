@@ -86,7 +86,7 @@ tr:hover {
   background-color: rgb(132 139 200 / 18%);
 }
 .wrapper-btns-manage {
-  width: 150px;
+  width: 20%;
 }
 .wrapper-btns-manage .btns-manage {
   padding: 0;
@@ -113,4 +113,105 @@ tr:hover {
   background-color: white;
   border: none;
   font-weight: bold;
+}
+
+@media (max-width: 1400px) {
+  .tabla-inicio {
+    overflow: hidden;
+  }
+  .tabla-inicio-label {
+    /* background-color: #677483; */
+    width: 100%;
+  }
+  /* .tabla-inicio-label > h1 */
+  .app-container-user-tabla {
+    width: 100%;
+  }
+
+  .table-container {
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 850px) {
+  .tabla-inicio-label > h1 {
+    font-size: 35px;
+    margin-top: 20%;
+  }
+
+  .table-container > table {
+    width: 100%;
+  }
+
+  .table-container > table tr {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #677483;
+    align-items: baseline;
+  }
+
+  tr:hover {
+    background-color: transparent;
+  }
+
+  .table-container > table td[data-t] {
+    display: flex;
+  }
+
+  .table-container > table td[data-t]::before {
+    content: attr(data-t);
+    margin-right: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .table-container > table thead {
+    display: none;
+  }
+
+  .tabla-content {
+    background-color: transparent;
+  }
+
+  .wrapper-btns-manage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .wrapper-btns-manage {
+    width: 100%;
+  }
+  .btns-manage {
+    width: 100%;
+  }
+
+  .btns-manage-edit:hover {
+    background-color: #adb6c1;
+    color: white;
+  }
+  .tabla-content-td {
+    margin: auto;
+    margin-top: 10px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .tabla-inicio-label {
+    margin-top: 20%;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 300px) {
+  .tabla-inicio-label {
+    margin-top: 45%;
+  }
+  .table-container {
+    margin-top: -10%;
+    margin-left: -13%;
+  }
 }

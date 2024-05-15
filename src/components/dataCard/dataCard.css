@@ -1,22 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Sora&display=swap');
 
-.title {
-  width: 100%;
-  height: 50px;
-}
-.title > h1 {
-  /* background-color: yellow; */
-  padding-top: 25px;
-  text-align: center;
-  height: 100%;
-  width: 97%;
-  margin: auto;
-  font-size: 45px;
-  font-family: 'Indie Flower', cursive;
-  color: black;
-  font-weight: bold;
-}
-
 .dataCard {
   overflow: hidden;
   height: 100%;
@@ -25,7 +8,6 @@
   grid-template-columns: repeat(5, 1fr);
   justify-items: center;
   align-items: center;
-  /* grid-row-gap: 50px; */
   grid-column-gap: 50px;
 }
 
@@ -137,4 +119,31 @@
   justify-content: space-around;
   gap: 20px;
   padding-bottom: 20px;
+}
+
+@media (max-width: 800px) {
+  .app-container-category-data-card-img {
+    width: 80%;
+  }
+}
+
+@media (max-width: 440px) {
+  .dataCard {
+    padding: 0;
+  }
+
+  .app-container-category-data-card {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  .app-container-category-data-card-img {
+    width: 80%;
+  }
+
+  .app-container-category-data-card-img > img {
+    margin-top: 10%;
+    border: 0;
+    margin-bottom: 20%;
+  }
 }

@@ -48,7 +48,7 @@ export const CategoryCard: React.FC<{}> = () => {
         {categoryList?.map((data, idx) => (
           <div className="app-container-category-data-card" key={idx}>
             <div className="app-container-category-data-card-img" key={idx}>
-              <img src={data.image_url} alt="zzz" />
+              <img src={data.image_url} alt="categoria" />
             </div>
 
             <div className="app-container-category-data-card-name">

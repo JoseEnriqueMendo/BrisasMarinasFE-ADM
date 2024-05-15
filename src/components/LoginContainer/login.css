@@ -8,7 +8,6 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
   background-color: var(--third-bckg-color);
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,6 +15,10 @@
   height: 520px;
   transform: translate(-50%, -50%);
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.app-container-register-login {
   display: flex;
   flex-direction: column;
 }
@@ -29,20 +32,20 @@
   width: fit-content;
 }
 
-.app-container-header > h1 {
+.app-container-login-header > h1 {
   font-size: 45px;
   text-align: left;
   margin-bottom: 40px;
   color: #0b132a;
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
 }
 
-.app-container-header {
+.app-container-login-header {
   display: flex;
   flex-direction: row;
 }
 
-.app-container-header > img {
+.app-container-login-header > img {
   width: 150px;
   height: 150px;
 }
@@ -57,6 +60,104 @@
 }
 
 .app-container-login-button {
+  width: 50%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+}
+
+@media (max-height: 440px) {
+  .app-container-login-container {
+    justify-content: center;
+    position: relative;
+    transform: translate(0, 0);
+    width: 100%;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .app-container-login-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 5px;
+    height: 100px;
+  }
+
+  .app-container-login-header > img {
+    width: 15%;
+    height: 136%;
+    border-radius: 100%;
+  }
+
+  .app-container-login-header > h1 {
+    margin-top: 5%;
+  }
+
+  .app-container-register-login {
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  }
+  .app-container-login-button {
+    margin-right: 18%;
+  }
+}
+
+@media (max-height: 350px) {
+  .app-container-login-container {
+    overflow-y: auto;
+  }
+
+  .app-container-login-header {
+    margin-top: 200px;
+  }
+}
+
+@media (max-width: 440px) {
+  .app-container-login-container {
+    justify-content: center;
+    position: relative;
+    transform: translate(0, 0);
+    width: 100%;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    margin-top: 15%;
+    left: 0;
+    height: 80%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .app-container-login-header > h1 {
+    margin-top: 5%;
+    width: 50%;
+  }
+  .app-container-login-button {
+    margin-top: 5%;
+  }
+  .app-container-login-header > img {
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 280px) {
+  .app-container-login-header > h1 {
+    margin-left: -10px;
+  }
+  .app-container-register {
+    flex-direction: column;
+  }
 }

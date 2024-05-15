@@ -39,7 +39,7 @@
   background-color: #00bfff;
   color: white;
   font-size: 15px;
-  width: 100px;
+  width: 30%;
   padding: 6px;
   height: 40px;
   border-radius: 5px;
@@ -58,4 +58,40 @@
 
 .ModalPersonalized-button:hover {
   background-color: rgb(0, 128, 255);
+}
+
+@media (max-width: 440px) {
+  .ModalPersonalized-hader,
+  .ModalPersonalized-body {
+    width: 80%;
+    margin-left: 5%;
+  }
+
+  .ModalPersonalized-title {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .ModalPersonalized-hader,
+  .ModalPersonalized-body {
+    width: 80%;
+    margin-left: 5%;
+  }
+
+  .ModalPersonalized-title {
+    font-size: 25px;
+  }
+}
+
+@media (max-height: 440px) {
+  .ModalPersonalized-hader,
+  .ModalPersonalized-body {
+    width: 80%;
+    margin-left: 5%;
+  }
+
+  .ModalPersonalized-title {
+    font-size: 25px;
+  }
 }

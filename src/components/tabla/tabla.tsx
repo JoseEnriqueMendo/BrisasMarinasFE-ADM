@@ -63,11 +63,13 @@ export const TablaUser: React.FC<{}> = () => {
               .map((user, idx) => (
                 <tr key={idx} className="tabla-content">
                   <td className="tabla-content-td">{'Propietario'}</td>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.lastname}</td>
-                  <td>{user.email}</td>
-                  <td>{parseInt(user.id_profile) === 1 ? 'Administrador' : 'Cliente'}</td>
+                  <td data-t="id">{user.id}</td>
+                  <td data-t="nombre">{user.name}</td>
+                  <td data-t="apellido">{user.lastname}</td>
+                  <td data-t="email">{user.email}</td>
+                  <td data-t="Rol">
+                    {parseInt(user.id_profile) === 1 ? 'Administrador' : 'Cliente'}
+                  </td>
                 </tr>
               ))}
 
@@ -79,11 +81,13 @@ export const TablaUser: React.FC<{}> = () => {
               return (
                 <tr key={idx}>
                   <td className="tabla-content-td"> </td>
-                  <td>{data.id}</td>
-                  <td>{data.name}</td>
-                  <td>{data.lastname}</td>
-                  <td>{data.email}</td>
-                  <td>{parseInt(data.id_profile) === 1 ? 'Administrador' : 'Cliente'}</td>
+                  <td data-t="id">{data.id}</td>
+                  <td data-t="nombre">{data.name}</td>
+                  <td data-t="apellido">{data.lastname}</td>
+                  <td data-t="email">{data.email}</td>
+                  <td data-t="Rol">
+                    {parseInt(data.id_profile) === 1 ? 'Administrador' : 'Cliente'}
+                  </td>
                   <td className="wrapper-btns-manage">
                     <ul className="btns-manage">
                       <li className="btns-manage-edit" onClick={() => DeleteUsuario(data)}>

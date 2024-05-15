@@ -85,3 +85,15 @@ hr {
 .app-container-buttonDetalle > svg:hover {
   color: rgb(140, 233, 0);
 }
+
+@media (max-width: 600px) {
+  .app-container-buttonLogin {
+    margin-right: 10px;
+    width: 100%;
+  }
+
+  .app-container-buttonLogin > button {
+    width: 90%;
+    font-size: 15px;
+  }
+}

@@ -36,6 +36,27 @@
 .Members-container {
   display: grid;
   grid-template-columns: repeat(4, auto);
+  gap: 20px; /* Espacio entre tarjetas */
+}
+
+@media screen and (max-width: 1300px) {
+  .Members-container {
+    grid-template-columns: repeat(3, auto); /* Cambia a dos columnas */
+  }
+}
+
+/* Consulta de medios para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+  .Members-container {
+    grid-template-columns: repeat(2, auto); /* Cambia a dos columnas */
+  }
+}
+
+/* Consulta de medios para pantallas aún más pequeñas */
+@media screen and (max-width: 480px) {
+  .Members-container {
+    grid-template-columns: auto; /* Cambia a una sola columna */
+  }
 }
 
 .Members-container-names {
@@ -47,4 +68,15 @@
   text-align: center;
   color: white;
   font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .cabezeraInformacion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cabezeraInformacion > p {
+    font-size: 18px;
+  }
 }

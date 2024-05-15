@@ -27,7 +27,5 @@ body,
     hsl(152deg 41% 91%) 97%,
     hsl(105deg 55% 96%) 100%
   );
-}
-
-.app-container-login-container {
+  overflow: hidden;
 }

@@ -30,7 +30,7 @@
   margin-top: 30px;
 }
 
-.app-container-category-create-image >div > img{
+.app-container-category-create-image > div > img {
   width: 350px;
   height: 325px;
 }
@@ -44,21 +44,18 @@
   width: 50%;
 }
 
-
-.app-container-create-image-uploaded{
+.app-container-create-image-uploaded {
   display: flex;
   flex-direction: column;
-
 }
 
-.app-container-create-image-uploaded> label{
+.app-container-create-image-uploaded > label {
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 20px;
 }
 
 /*****************************************/
-
 
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Sora&display=swap');
 .create-container-category {
@@ -70,14 +67,13 @@
   width: 500px;
   margin: auto;
 }
-.txt>h1 {
+.txt > h1 {
   text-align: center;
   font-family: 'Indie Flower', cursive;
   font-size: 25px;
   color: black;
   font-weight: bold;
   text-transform: uppercase;
-
 }
 
 .container-category-create-form {
@@ -122,13 +118,12 @@
   justify-content: center;
 }
 .txt1 {
-
   padding: 10px;
   /* display: flex;*/
   /* align-items: center; */
   /* justify-content: center; */
 }
-.txt1>h1 {
+.txt1 > h1 {
   width: 100%;
   margin: auto;
 
@@ -160,11 +155,28 @@
   align-items: center;
   justify-content: center;
 }
-.edit-file>button {
+.edit-file > button {
   cursor: pointer;
 }
 
-
-
-
-
+.title {
+  width: 100%;
+  height: 50px;
+}
+.title > h1 {
+  /* background-color: yellow; */
+  padding-top: 5%;
+  text-align: center;
+  height: 100%;
+  width: 97%;
+  margin: auto;
+  font-size: 45px;
+  font-family: 'Indie Flower', cursive;
+  color: black;
+  font-weight: bold;
+}
+@media (max-width: 440px) {
+  .title > h1 {
+    font-size: 35px;
+  }
+}

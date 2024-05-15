@@ -3,6 +3,15 @@ import { UserDefault } from '../entities/User';
 
 const BASE_URL = 'https://brisasmarinasbe.onrender.com';
 const userService = {
+  message: async (): Promise<UserDefault[] | null> => {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/message`);
+      return data;
+    } catch (error) {
+      return null;
+    }
+  },
+
   list: async (): Promise<UserDefault[] | null> => {
     try {
       const { data } = await axios.get(`${BASE_URL}/auth/all`);

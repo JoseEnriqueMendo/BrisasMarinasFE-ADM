@@ -45,14 +45,13 @@ export const LoginContainer: React.FC<{ handleauth: () => void }> = ({ handleaut
   return (
     <div className="app-container-login-container">
       {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
-      <div className="app-container-linput">
-        <div className="app-container-header">
-          <img
-            src={require('../../assets/Images/logo Brisas marinas.png')}
-            alt="Brisas Marinas Logo"
-          />
-          <h1>Brisas Marinas</h1>
-        </div>
+
+      <div className="app-container-login-header">
+        <img
+          src={require('../../assets/Images/logo Brisas marinas.png')}
+          alt="Brisas Marinas Logo"
+        />
+        <h1>Brisas Marinas</h1>
       </div>
 
       <div className="app-container-login-input-forms">
@@ -79,17 +78,18 @@ export const LoginContainer: React.FC<{ handleauth: () => void }> = ({ handleaut
           expresionRegular={/^.{4,25}$/}
         />
       </div>
+      <div className="app-container-register-login">
+        <div className="app-container-register">
+          <label>¿Olvidaste tu contraseña?</label>
+          <a href="*">Haz click aquí</a>
+        </div>
 
-      <div className="app-container-register">
-        <label>¿Olvidaste tu contraseña?</label>
-        <a href="*">Haz click aquí</a>
-      </div>
-
-      <div className="app-container-login-button">
-        <Button
-          placeholder="Iniciar Sesión"
-          handleClick={() => submitClick(email, password)}
-        />
+        <div className="app-container-login-button">
+          <Button
+            placeholder="Iniciar Sesión"
+            handleClick={() => submitClick(email, password)}
+          />
+        </div>
       </div>
     </div>
   );

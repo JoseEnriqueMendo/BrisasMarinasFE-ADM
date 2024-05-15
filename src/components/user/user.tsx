@@ -115,7 +115,8 @@ export const CreateUserContent: React.FC<{
     }
   };
   const eventoGenero = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === 'Masculino') {
+    const selectedValue = event.target.value;
+    if (selectedValue === 'Masculino') {
       setgenero('M');
     } else {
       setgenero('F');
@@ -157,7 +158,7 @@ export const CreateUserContent: React.FC<{
                 cambiarCampo={(txt: string) => setName(txt)}
                 tipo="text"
                 label="Nombre"
-                placeholder="Ejemplo: Ceviche Mixto"
+                placeholder="Ejemplo: Mario Hugo"
                 leyendaError="La categoría debe contener como mínimo 6 caracteres"
                 expresionRegular={/^.{6,25}$/}
               />
@@ -205,12 +206,14 @@ export const CreateUserContent: React.FC<{
                     <select
                       className="categoria"
                       name="Genero"
-                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => eventoGenero(e)}
+                      value={genero}
+                      onChange={eventoGenero}
                     >
-                      <option selected disabled>
+                      <option disabled value="">
                         Choose one
                       </option>
-                      <option>Masculino</option> <option>Femenino</option>
+                      <option value="Masculino">Masculino</option>{' '}
+                      <option value="Femenino">Femenino</option>
                     </select>
                   </div>
                 </div>
@@ -243,10 +246,11 @@ export const CreateUserContent: React.FC<{
                 <label>ROL</label>
                 <select
                   className="categoria"
-                  name="Categoria "
+                  name="Categoria"
+                  value={idRol}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => evento(e)}
                 >
-                  <option selected disabled>
+                  <option value="" disabled>
                     Choose one
                   </option>
                   <option>Cliente</option>

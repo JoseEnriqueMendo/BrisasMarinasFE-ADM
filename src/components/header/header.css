@@ -37,3 +37,25 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+@media (max-width: 600px) {
+  .app-container-header-default-title {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+  .app-container-header-default-button {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 400px) {
+  .app-container-header-default-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 300px) {
+  .app-container-header-default-title {
+    font-size: 12px;
+  }
+}

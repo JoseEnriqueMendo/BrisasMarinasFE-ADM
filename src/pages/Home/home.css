@@ -7,7 +7,6 @@
   height: 100%;
   display: flex;
   flex-direction: row;
-  
 }
 
 .app-container-home > div {
@@ -25,17 +24,13 @@
   height: 100%;
 }
 
-.app-container-category-content-category > div > div > div {
-
-}
-
 .app-container-edit-category {
   display: flex;
   flex-direction: row;
   height: 100%;
 }
 .app-container-category-content {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   overflow-y: scroll;
   /* background-color: grey; */
@@ -94,7 +89,6 @@
   border-radius: 15px;
   /* background-color: grey; */
   padding-bottom: 20px;
-  
 }
 .app-container-category-edit-file {
   width: 80%;
@@ -133,7 +127,7 @@
   justify-content: center;
   padding-bottom: 30px;
 }
-.app-container-create-image-uploaded>label>h1{
+.app-container-create-image-uploaded > label > h1 {
   text-align: center;
   font-family: 'Indie Flower', cursive;
   font-size: 25px;
@@ -142,7 +136,3 @@
   text-transform: uppercase;
   border-bottom: 3px solid black;
 }
-
-
-
-

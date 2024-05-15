@@ -4,6 +4,7 @@ import userService from './services/user';
 import { BorrarUser, CreateUser, User } from './pages/User/user';
 import { Login } from './pages/Login/login';
 import { Home, CreateCategory, EditCategory, DeleteCategory } from './pages/Home/home';
+
 import {
   BorrarPlatillo,
   CreatePlatillo,
@@ -22,6 +23,10 @@ function App() {
   };
 
   useEffect(() => {
+    const firstConnect = async () => {
+      console.log(await userService.message());
+    };
+    firstConnect();
     VerifyLoggedIn();
   }, []);
 
