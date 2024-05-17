@@ -7,10 +7,10 @@ import ModalPersonalized from '../ModalPersonalized/ModalPersonalized';
 import './login.css';
 
 export const LoginContainer: React.FC<{ handleauth: () => void }> = ({ handleauth }) => {
-  const [email, setEmail] = useState('');
-  const [emailState, setEmailState] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordState, setPasswordState] = useState(false);
+  const [email, setEmail] = useState('user@example.com');
+  const [emailState, setEmailState] = useState(true);
+  const [password, setPassword] = useState('123456789');
+  const [passwordState, setPasswordState] = useState(true);
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(false);
   const [paramas, setparams] = useState(['', '']);

@@ -4,15 +4,17 @@
   height: 100%;
   padding-top: 50px;
 }
-.txt {
+.txt-platillo {
   width: 500px;
   margin: auto;
+  margin-top: -5%;
+  margin-bottom: 5%;
 }
-.txt > h1 {
+.txt-platillo > h1 {
   text-align: center;
   font-family: 'Indie Flower', cursive;
-  font-size: 25px;
-  color: black;
+  font-size: 30px;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -30,12 +32,12 @@
   padding: 0 2rem 0 2rem;
   box-shadow: 0 2rem 3rem rgb(132 139 200 / 18%);
 }
-.create-top {
+.create-top-platillo {
   display: flex;
   height: 400px;
   gap: 10px;
 }
-.create-top-left {
+.create-top-left-platillo {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -43,12 +45,12 @@
   border: 1px solid aquamarine;
   border-radius: 15px;
 }
-.create-top-right {
+.create-top-right-platillo {
   width: 50%;
   border: 1px solid aquamarine;
   border-radius: 15px;
 }
-.container-create-image-uploaded {
+.container-create-image-uploaded-platillo {
   width: 100%;
   height: 100%;
   display: flex;
@@ -58,9 +60,6 @@
 }
 .txt1 {
   padding: 10px;
-  /* display: flex;*/
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 .txt1 > h1 {
   width: 100%;
@@ -73,11 +72,11 @@
   text-transform: uppercase;
   padding-right: 10px;
 }
-.container-create-image-uploaded .img-create {
+.container-create-image-uploaded-platillo .img-create {
   width: 300px;
   height: 300px;
 }
-.create-inputs {
+.create-inputs-platillo {
   /* background-color: yellow; */
 }
 .container-platillo-create-file {
@@ -88,13 +87,10 @@
   gap: 15px;
 }
 .app-container-platillo-create-category {
-  width: 72%;
-  /* margin: auto; */
-  padding-left: 55px;
+  width: 75%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+  margin: auto;
+  flex-direction: column;
 }
 .edit-file {
   display: flex;
@@ -104,4 +100,52 @@
 }
 .edit-file > button {
   cursor: pointer;
+}
+
+.categoria {
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .container-platillo-create-form {
+    width: 80%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container-platillo-create-form {
+    height: 80%;
+  }
+}
+
+@media (max-width: 800px) {
+  .container-platillo-create-form {
+    height: 100%;
+  }
+
+  .create-top-platillo {
+    height: 100%;
+    width: 100%;
+    display: flexbox;
+    flex-direction: column;
+  }
+  .create-top-right-platillo,
+  .create-top-left-platillo,
+  .container-create-image-uploaded-platillo,
+  .create-inputs-platillo {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .txt-platillo {
+    margin-bottom: 10%;
+  }
+}
+
+@media (max-width: 500px) {
+  .txt-platillo {
+    margin-left: -5%;
+    margin-bottom: 15%;
+  }
 }

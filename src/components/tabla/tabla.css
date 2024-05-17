@@ -10,6 +10,7 @@
 
 .tabla-inicio-label {
   width: 80%;
+  margin-top: 3%;
 }
 .tabla-inicio-label > h1 {
   font-size: 45px;
@@ -135,9 +136,12 @@ tr:hover {
 }
 
 @media (max-width: 850px) {
+  .tabla-inicio-label {
+    margin-top: 30%;
+  }
+
   .tabla-inicio-label > h1 {
     font-size: 35px;
-    margin-top: 20%;
   }
 
   .table-container > table {
@@ -201,7 +205,7 @@ tr:hover {
 
 @media (max-width: 400px) {
   .tabla-inicio-label {
-    margin-top: 20%;
+    margin-top: 30%;
     font-size: 20px;
   }
 }

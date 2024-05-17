@@ -3,9 +3,8 @@
   margin-left: 55px;
 }
 .app-container-input {
-  /* background-color: grey; */
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: flex-start;
 }
 .app-container-input-icon {
@@ -42,7 +41,6 @@
   flex-direction: row;
   align-items: center;
   align-content: center;
-  
 }
 
 .app-container-inputAndIcon > input {

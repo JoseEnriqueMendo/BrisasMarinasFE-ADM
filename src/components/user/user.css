@@ -1,22 +1,20 @@
-.app-container-create {
-  /* width: 100vw; */
-  height: 100vh;
-  /* background-color: aquamarine; */
-  overflow: hidden;
+.app-container-create-user {
+  height: 100%;
+  /* overflow: hidden; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.app-container-platillo-create {
-  height: 70%;
+.app-container-user-create {
+  height: 100%;
   width: 70%;
   margin: auto;
   display: flex;
   justify-content: center;
 }
-.app-container-platillo-create-form{
-  background-color: aquamarine;
-  width: 75%;
+.app-container-user-create-form {
+  width: 85%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,21 +22,16 @@
   border-radius: 2rem;
   padding: 0 2rem 0 2rem;
   box-shadow: 0 2rem 3rem rgb(132 139 200 / 18%);
+  overflow: scroll;
 }
+
 .form {
   margin-bottom: 20px;
-  /* background-color: beige; */
   border: 1px solid aquamarine;
-  border-radius: 15px
+  border-radius: 15px;
 }
-.name-apellido {
 
-}
-.create-part2 {
-  /* background-color: green; */
-}
-.part2-top{
-  /* background-color: red; */
+.part2-top {
   display: flex;
 }
 .top-lef {
@@ -46,28 +39,111 @@
 }
 .top-right {
   width: 50%;
-
 }
 .part2-bot {
-
   width: 32%;
   margin: auto;
-  height: 100px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
 
-.app-container-gender{
+.app-container-gender {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 50px;
   width: 72%;
   margin-left: 55px;
-  /* margin: auto; */
 }
-.app-container-gender>label {
+.app-container-gender > label {
   padding-right: 10px;
+}
+
+.buton-form-create {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .app-container-user-create-form {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .app-container-user-create {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .app-container-user-create-form {
+    overflow-x: hidden;
+  }
+  .app-container-user-create {
+    height: 100%;
+  }
+  .part2-top {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-container-user-create-form > div {
+    margin-bottom: -20%;
+  }
+
+  .top-lef {
+    width: 100%;
+  }
+  .top-right {
+    width: 100%;
+  }
+
+  .part2-bot {
+    width: 50%;
+  }
+  .buton-form-create {
+    margin-top: 18%;
+    margin-bottom: 10%;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-container-user-create-form {
+    overflow: scroll;
+  }
+  .app-container-user-create-form > div {
+    margin-bottom: -30%;
+  }
+  .buton-form-create {
+    margin-top: 25%;
+    text-align: center;
+  }
+  .app-container-create-user {
+    height: 100%;
+  }
+}
+
+@media (max-height: 600px) {
+  .name-apellido {
+    margin-top: 20%;
+  }
+}
+
+@media (max-height: 500px) {
+  .name-apellido {
+    margin-top: 30%;
+  }
+}
+
+@media (max-height: 400px) and (max-width: 600px) {
+  .name-apellido {
+    margin-top: 60%;
+  }
 }

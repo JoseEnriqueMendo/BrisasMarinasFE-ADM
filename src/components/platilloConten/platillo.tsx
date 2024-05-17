@@ -125,7 +125,7 @@ export const CreatePlatilloContent: React.FC<{
   const mostrarImagen = () => {
     if (urlState === true) {
       return (
-        <div className="container-create-image-uploaded">
+        <div className="container-create-image-uploaded-platillo">
           <div className="txt1">
             <h1>Previsualización de la Imagen</h1>{' '}
           </div>
@@ -251,13 +251,13 @@ export const CreatePlatilloContent: React.FC<{
   return (
     <div className="create-container-platillo">
       {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
-      <div className="txt">
+      <div className="txt-platillo">
         <h1>Registro de Platillos</h1>
       </div>
       <div className="container-platillo-create-form">
-        <div className="create-top">
-          <div className="create-top-left">
-            <div className="create-inputs">
+        <div className="create-top-platillo">
+          <div className="create-top-left-platillo">
+            <div className="create-inputs-platillo">
               <InputDefault
                 estado={nameState}
                 campo={name}
@@ -300,9 +300,9 @@ export const CreatePlatilloContent: React.FC<{
               </div>
             </div>
           </div>
-          <div className="create-top-right">{mostrarImagen()}</div>
+          <div className="create-top-right-platillo">{mostrarImagen()}</div>
         </div>
-        <div className="create-bot">
+        <div className="create-bot-platillo">
           <div className="container-platillo-create-file">
             <div className="edit-file">
               <h4>Imagen</h4>

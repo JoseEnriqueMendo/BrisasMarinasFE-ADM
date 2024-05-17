@@ -1,16 +1,30 @@
 .app-container-home {
   width: 100%;
+  height: 100%;
   overflow: hidden;
   box-sizing: border-box;
 }
 
 .app-container-category-content {
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container-category-content-header {
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+.app-container-category-content-category {
+  /* overflow: hidden; */
+
+  height: 80%;
 }
 
 .app-container-user-edit-form {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
 }
@@ -41,4 +55,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .user-top {
+    width: 120%;
+  }
+
+  .user-top > div > div {
+    margin-left: -10%;
+  }
+  .user-bot {
+    height: 100%;
+  }
 }

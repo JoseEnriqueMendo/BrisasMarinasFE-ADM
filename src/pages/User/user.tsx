@@ -62,7 +62,8 @@ export const CreateUser: React.FC<{
       <div className="app-container-category-content">
         <div className="app-container-category-content-header">
           <HeaderBack placeholder="Crear Usuarios" handleClick={() => navigate('/user')} />
-
+        </div>
+        <div className="app-container-category-content-category">
           <CreateUserContent
             name={name}
             setName={(txt: string) => setName(txt)}

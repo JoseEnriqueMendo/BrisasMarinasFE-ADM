@@ -23,6 +23,10 @@
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
 }
+
+.app-container-category-edit-form {
+  overflow-y: scroll;
+}
 .categoria::-ms-expand {
   display: none;
 }
@@ -46,9 +50,54 @@
 }
 
 .categoria option[selected] {
-  background-color: orange;
 }
 
 .dish-fix {
   margin-top: -100px;
+}
+
+@media (max-width: 1400px) {
+  .app-container-category-edit-form {
+    width: 100%;
+  }
+
+  .inputs {
+    width: 100%;
+  }
+  .app-container-category-edit-file {
+    width: 100%;
+    padding-top: 2%;
+  }
+}
+
+@media (max-width: 900px) {
+  .label {
+    margin-top: 5%;
+  }
+
+  .app-container-category-edit-form {
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .app-container-category-todo {
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+  .app-container-category-edit-form-input {
+    height: 100%;
+    width: 100%;
+  }
+
+  .form-input-container {
+    width: 90%;
+  }
+
+  .app-container-category-create-image {
+    width: 100%;
+  }
+  .categoria {
+    width: 72%;
+  }
 }

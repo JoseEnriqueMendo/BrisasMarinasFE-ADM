@@ -43,7 +43,7 @@ export const CategoryCard: React.FC<{}> = () => {
   };
 
   return (
-    <div>
+    <div className="dataCard-container">
       <div className="dataCard">
         {categoryList?.map((data, idx) => (
           <div className="app-container-category-data-card" key={idx}>

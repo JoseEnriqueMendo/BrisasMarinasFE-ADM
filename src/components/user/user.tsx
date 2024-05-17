@@ -145,10 +145,10 @@ export const CreateUserContent: React.FC<{
   };
 
   return (
-    <div className="app-container-create">
+    <div className="app-container-create-user">
       {showAlert && <ModalPersonalized message={paramas[0]} onClose={handleCloseAlert} />}
-      <div className="app-container-platillo-create">
-        <div className="app-container-platillo-create-form">
+      <div className="app-container-user-create">
+        <div className="app-container-user-create-form">
           <div className="form">
             <div className="name-apellido">
               <InputDefault
@@ -259,7 +259,9 @@ export const CreateUserContent: React.FC<{
               </div>
             </div>
           </div>
-          <Button placeholder="Registrar" handleClick={CreateUser} />
+          <div className="buton-form-create">
+            <Button placeholder="Registrar" handleClick={CreateUser} />
+          </div>
         </div>
       </div>
     </div>
