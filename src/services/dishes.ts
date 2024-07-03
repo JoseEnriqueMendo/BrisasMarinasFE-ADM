@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { DishesDefault } from '../entities/dishes';
 
-const BASE_URL = 'https://brisasmarinasbe.onrender.com';
+const BASE_URL = 'https://t6ty0vc3zj.execute-api.us-east-1.amazonaws.com';
 
 const dishesService = {
   list: async (): Promise<DishesDefault[] | null> => {
